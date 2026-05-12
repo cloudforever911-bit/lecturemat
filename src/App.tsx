@@ -1,8 +1,48 @@
+import { useEffect, useState } from 'react'
+import type { User } from '@supabase/supabase-js'
+import { supabase } from './lib/supabase'
+import AuthModal from './components/AuthModal'
 import './App.css'
 
 function App() {
+  const [user, setUser] = useState<User | null>(null)
+  const [showAuth, setShowAuth] = useState(false)
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      setUser(data.session?.user ?? null)
+    })
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null)
+    })
+    return () => listener.subscription.unsubscribe()
+  }, [])
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut()
+  }
+
   return (
     <div className="aot-wrapper">
+
+      {/* Navigation */}
+      <nav className="aot-nav">
+        <span className="nav-logo">AOT</span>
+        <div className="nav-actions">
+          {user ? (
+            <>
+              <span className="nav-user">{user.email}</span>
+              <button className="btn-nav-outline" onClick={handleLogout}>로그아웃</button>
+            </>
+          ) : (
+            <>
+              <button className="btn-nav-outline" onClick={() => setShowAuth(true)}>로그인</button>
+              <button className="btn-nav-fill" onClick={() => setShowAuth(true)}>회원가입</button>
+            </>
+          )}
+        </div>
+      </nav>
+
       {/* Hero Section */}
       <header className="hero-section">
         <div className="hero-overlay" />
@@ -11,7 +51,11 @@ function App() {
           <h1 className="title-jp">進撃の巨人</h1>
           <h2 className="title-kr">ATTACK ON TITAN</h2>
           <p className="tagline">"그 날, 인류는 그들의 공포를 떠올렸다"</p>
-          <a className="btn-watch" href="#">지금 시청하기</a>
+          {user ? (
+            <p className="welcome-msg">환영합니다, {user.email?.split('@')[0]}님!</p>
+          ) : (
+            <button className="btn-watch" onClick={() => setShowAuth(true)}>지금 시청하기</button>
+          )}
         </div>
         <div className="scroll-hint">▼</div>
       </header>
@@ -80,6 +124,13 @@ function App() {
         <p>© 2013–2023 Hajime Isayama / Kodansha · WIT Studio · MAPPA</p>
         <p className="footer-sub">본 페이지는 팬 제작 홍보물입니다.</p>
       </footer>
+
+      {showAuth && (
+        <AuthModal
+          onClose={() => setShowAuth(false)}
+          onSuccess={() => setShowAuth(false)}
+        />
+      )}
     </div>
   )
 }

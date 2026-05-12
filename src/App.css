@@ -24,6 +24,85 @@ body {
   background: #0a0a0a;
 }
 
+/* ── NAV ── */
+.aot-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 40px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+  backdrop-filter: blur(2px);
+}
+
+.nav-logo {
+  font-family: 'Cinzel', serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: #c0392b;
+  letter-spacing: 4px;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-user {
+  font-size: 13px;
+  color: #888;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.btn-nav-outline {
+  background: none;
+  border: 1px solid #444;
+  color: #ccc;
+  padding: 8px 20px;
+  font-size: 13px;
+  font-family: 'Noto Sans KR', sans-serif;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-nav-outline:hover {
+  border-color: #c0392b;
+  color: #fff;
+}
+
+.btn-nav-fill {
+  background: #8b0000;
+  border: 1px solid #c0392b;
+  color: #fff;
+  padding: 8px 20px;
+  font-size: 13px;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-nav-fill:hover {
+  background: #c0392b;
+}
+
+.welcome-msg {
+  margin-top: 8px;
+  font-size: 16px;
+  color: #c0392b;
+  letter-spacing: 2px;
+}
+
 /* ── HERO ── */
 .hero-section {
   position: relative;
@@ -81,7 +160,7 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 16px;
-  padding: 40px 24px;
+  padding: 100px 24px 40px;
 }
 
 .subtitle-top {
