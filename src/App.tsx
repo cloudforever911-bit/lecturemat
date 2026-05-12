@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react'
 import type { User } from '@supabase/supabase-js'
 import { supabase } from './lib/supabase'
 import AuthModal from './components/AuthModal'
+import MyPage from './components/MyPage'
 import './App.css'
 
 function App() {
   const [user, setUser] = useState<User | null>(null)
   const [showAuth, setShowAuth] = useState(false)
+  const [showMyPage, setShowMyPage] = useState(false)
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
@@ -31,7 +33,8 @@ function App() {
         <div className="nav-actions">
           {user ? (
             <>
-              <span className="nav-user">{user.email}</span>
+              <button className="btn-nav-ghost" onClick={() => setShowMyPage(true)}>{user.email}</button>
+              <button className="btn-nav-outline" onClick={() => setShowMyPage(true)}>마이페이지</button>
               <button className="btn-nav-outline" onClick={handleLogout}>로그아웃</button>
             </>
           ) : (
@@ -129,6 +132,14 @@ function App() {
         <AuthModal
           onClose={() => setShowAuth(false)}
           onSuccess={() => setShowAuth(false)}
+        />
+      )}
+
+      {showMyPage && user && (
+        <MyPage
+          user={user}
+          onClose={() => setShowMyPage(false)}
+          onDeleted={() => setUser(null)}
         />
       )}
     </div>
