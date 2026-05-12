@@ -34,7 +34,7 @@ function App() {
 
       {/* Navigation */}
       <nav className="aot-nav">
-        <span className="nav-logo">AOT</span>
+        <span className="nav-logo">Lv120</span>
         <div className="nav-actions">
           {user ? (
             <>
@@ -55,47 +55,74 @@ function App() {
       <header className="hero-section">
         <div className="hero-overlay" />
         <div className="hero-content">
-          <p className="subtitle-top">2013 · 2023  진격의 거인</p>
-          <h1 className="title-jp">進撃の巨人</h1>
-          <h2 className="title-kr">ATTACK ON TITAN</h2>
-          <p className="tagline">"그 날, 인류는 그들의 공포를 떠올렸다"</p>
+          <p className="subtitle-top">수학 전문 온라인 강의</p>
+          <h1 className="title-jp">Lv120</h1>
+          <h2 className="title-kr">수학</h2>
+          <p className="tagline">레벨1 노베이스부터 레벨120 미적분 정복까지 한큐에 해결해드립니다.</p>
           {user ? (
             <p className="welcome-msg">환영합니다, {user.email?.split('@')[0]}님!</p>
           ) : (
-            <button className="btn-watch" onClick={() => setShowAuth(true)}>지금 시청하기</button>
+            <button className="btn-watch" onClick={() => setShowAuth(true)}>강의 둘러보기</button>
           )}
         </div>
         <div className="scroll-hint">▼</div>
       </header>
 
-      {/* Story Section */}
+      {/* About Section */}
       <section className="story-section">
         <div className="section-inner">
-          <span className="section-label">STORY</span>
-          <h3>거인에게 빼앗긴 세계,<br />그리고 인류의 반격</h3>
+          <span className="section-label">ABOUT</span>
+          <h3>수포자도, 최상위도,<br />모두를 위한 수학</h3>
           <p>
-            100년 전, 인류는 거대한 벽을 쌓아 거인의 위협으로부터 스스로를 지켜왔다.
-            그러나 어느 날 초대형 거인의 출현으로 벽이 무너지고, 에렌은 눈앞에서
-            어머니를 잃는다. 복수와 자유를 위해 조사병단에 입단한 에렌과 동료들의
-            처절한 싸움이 시작된다.
+            수학이 두렵다고 느끼는 순간부터, 미적분을 완벽히 정복하는 그날까지.
+            Lv120 수학은 개념의 빈틈 없이 레벨별로 설계된 커리큘럼으로
+            여러분을 이끌어 드립니다. 중학교 기초부터 고2 수학까지,
+            단 하나의 강의 플랫폼에서 완성하세요.
           </p>
         </div>
       </section>
 
-      {/* Characters Section */}
+      {/* Courses Section */}
       <section className="chars-section">
-        <span className="section-label">CHARACTERS</span>
+        <span className="section-label">COURSES</span>
         <div className="chars-grid">
           {[
-            { name: '에렌 예거', role: 'Eren Yeager', color: '#c0392b', initial: 'E' },
-            { name: '미카사 아커만', role: 'Mikasa Ackerman', color: '#2c3e50', initial: 'M' },
-            { name: '아르민 알레르트', role: 'Armin Arlert', color: '#d4ac0d', initial: 'A' },
-            { name: '리바이 아커만', role: 'Levi Ackerman', color: '#1a252f', initial: 'L' },
+            {
+              initial: '中',
+              name: '중학교 전범위 수학강의',
+              role: '도형 제외 · Lv.1 ~ 60',
+              color: '#8b0000',
+            },
+            {
+              initial: '圖',
+              name: '중학 도형 특강',
+              role: '도형 집중 완성 · Lv.30 ~ 70',
+              color: '#2c3e50',
+            },
+            {
+              initial: '高',
+              name: '고1 전범위 수학강의',
+              role: '고등 수학 Ⅰ · Lv.60 ~ 90',
+              color: '#c0392b',
+            },
+            {
+              initial: 'Σ',
+              name: '고2 수학 전범위 강의',
+              role: '미적분 · 확통 · Lv.90 ~ 120',
+              color: '#5b2d8e',
+            },
           ].map((c) => (
-            <div className="char-card" key={c.role} style={{ '--accent-color': c.color } as React.CSSProperties}>
+            <div className="char-card" key={c.name} style={{ '--accent-color': c.color } as React.CSSProperties}>
               <div className="char-avatar">{c.initial}</div>
               <div className="char-name">{c.name}</div>
               <div className="char-role">{c.role}</div>
+              <div className="course-price">₩ 400,000</div>
+              <button
+                className="course-btn"
+                onClick={() => !user && setShowAuth(true)}
+              >
+                {user ? '수강 신청' : '로그인 후 신청'}
+              </button>
             </div>
           ))}
         </div>
@@ -105,10 +132,10 @@ function App() {
       <section className="stats-section">
         <div className="stats-grid">
           {[
-            { num: '87', label: '에피소드' },
-            { num: '4', label: '시즌' },
-            { num: '9.0', label: 'IMDb 평점' },
-            { num: '140M+', label: '만화 판매부수' },
+            { num: '4', label: '커리큘럼' },
+            { num: '120', label: '최고 레벨' },
+            { num: '40만', label: '균일 수강료' },
+            { num: '1:1', label: 'Q&A 지원' },
           ].map((s) => (
             <div className="stat-item" key={s.label}>
               <span className="stat-num">{s.num}</span>
@@ -121,16 +148,16 @@ function App() {
       {/* Quote Section */}
       <section className="quote-section">
         <blockquote>
-          "나는 태어날 때부터 이 세계에 있었다.<br />
-          그렇다면, 이 세계도 나의 것이다."
+          "수학은 재능이 아니라 방법의 문제입니다.<br />
+          올바른 길을 걸으면, 누구든 정상에 오릅니다."
         </blockquote>
-        <cite>— 에렌 예거</cite>
+        <cite>— Lv120 수학</cite>
       </section>
 
       {/* Footer */}
       <footer className="footer">
-        <p>© 2013–2023 Hajime Isayama / Kodansha · WIT Studio · MAPPA</p>
-        <p className="footer-sub">본 페이지는 팬 제작 홍보물입니다.</p>
+        <p>© 2025 Lv120 수학 · All rights reserved</p>
+        <p className="footer-sub">본 사이트의 모든 강의 콘텐츠는 저작권법의 보호를 받습니다.</p>
       </footer>
 
       {showAuth && (

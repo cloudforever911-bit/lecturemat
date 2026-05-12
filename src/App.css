@@ -154,7 +154,7 @@ body {
 }
 
 .hero-section::after {
-  content: '⚔';
+  content: '∑';
   position: absolute;
   font-size: 600px;
   opacity: 0.03;
@@ -361,6 +361,35 @@ body {
   color: #666;
   letter-spacing: 2px;
   text-transform: uppercase;
+}
+
+.course-price {
+  font-family: 'Cinzel', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #c0392b;
+  margin-top: 16px;
+  letter-spacing: 1px;
+}
+
+.course-btn {
+  margin-top: 16px;
+  background: transparent;
+  border: 1px solid #444;
+  color: #aaa;
+  padding: 10px 20px;
+  font-size: 12px;
+  font-family: 'Noto Sans KR', sans-serif;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s;
+  width: 100%;
+}
+
+.char-card:hover .course-btn {
+  border-color: var(--accent-color);
+  color: #fff;
+  background: var(--accent-color);
 }
 
 /* ── STATS ── */
