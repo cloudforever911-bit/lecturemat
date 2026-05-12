@@ -1,121 +1,86 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <div className="aot-wrapper">
+      {/* Hero Section */}
+      <header className="hero-section">
+        <div className="hero-overlay" />
+        <div className="hero-content">
+          <p className="subtitle-top">2013 · 2023  진격의 거인</p>
+          <h1 className="title-jp">進撃の巨人</h1>
+          <h2 className="title-kr">ATTACK ON TITAN</h2>
+          <p className="tagline">"그 날, 인류는 그들의 공포를 떠올렸다"</p>
+          <a className="btn-watch" href="#">지금 시청하기</a>
         </div>
-        <div>
-          <h1>Get started</h1>
+        <div className="scroll-hint">▼</div>
+      </header>
+
+      {/* Story Section */}
+      <section className="story-section">
+        <div className="section-inner">
+          <span className="section-label">STORY</span>
+          <h3>거인에게 빼앗긴 세계,<br />그리고 인류의 반격</h3>
           <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
+            100년 전, 인류는 거대한 벽을 쌓아 거인의 위협으로부터 스스로를 지켜왔다.
+            그러나 어느 날 초대형 거인의 출현으로 벽이 무너지고, 에렌은 눈앞에서
+            어머니를 잃는다. 복수와 자유를 위해 조사병단에 입단한 에렌과 동료들의
+            처절한 싸움이 시작된다.
           </p>
         </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
       </section>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
+      {/* Characters Section */}
+      <section className="chars-section">
+        <span className="section-label">CHARACTERS</span>
+        <div className="chars-grid">
+          {[
+            { name: '에렌 예거', role: 'Eren Yeager', color: '#c0392b', initial: 'E' },
+            { name: '미카사 아커만', role: 'Mikasa Ackerman', color: '#2c3e50', initial: 'M' },
+            { name: '아르민 알레르트', role: 'Armin Arlert', color: '#d4ac0d', initial: 'A' },
+            { name: '리바이 아커만', role: 'Levi Ackerman', color: '#1a252f', initial: 'L' },
+          ].map((c) => (
+            <div className="char-card" key={c.role} style={{ '--accent-color': c.color } as React.CSSProperties}>
+              <div className="char-avatar">{c.initial}</div>
+              <div className="char-name">{c.name}</div>
+              <div className="char-role">{c.role}</div>
+            </div>
+          ))}
         </div>
       </section>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+      {/* Stats Section */}
+      <section className="stats-section">
+        <div className="stats-grid">
+          {[
+            { num: '87', label: '에피소드' },
+            { num: '4', label: '시즌' },
+            { num: '9.0', label: 'IMDb 평점' },
+            { num: '140M+', label: '만화 판매부수' },
+          ].map((s) => (
+            <div className="stat-item" key={s.label}>
+              <span className="stat-num">{s.num}</span>
+              <span className="stat-label">{s.label}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Quote Section */}
+      <section className="quote-section">
+        <blockquote>
+          "나는 태어날 때부터 이 세계에 있었다.<br />
+          그렇다면, 이 세계도 나의 것이다."
+        </blockquote>
+        <cite>— 에렌 예거</cite>
+      </section>
+
+      {/* Footer */}
+      <footer className="footer">
+        <p>© 2013–2023 Hajime Isayama / Kodansha · WIT Studio · MAPPA</p>
+        <p className="footer-sub">본 페이지는 팬 제작 홍보물입니다.</p>
+      </footer>
+    </div>
   )
 }
 
