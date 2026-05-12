@@ -3,19 +3,24 @@ import type { User } from '@supabase/supabase-js'
 import { supabase } from './lib/supabase'
 import AuthModal from './components/AuthModal'
 import MyPage from './components/MyPage'
+import ResetPasswordModal from './components/ResetPasswordModal'
 import './App.css'
 
 function App() {
   const [user, setUser] = useState<User | null>(null)
   const [showAuth, setShowAuth] = useState(false)
   const [showMyPage, setShowMyPage] = useState(false)
+  const [showResetPassword, setShowResetPassword] = useState(false)
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
       setUser(data.session?.user ?? null)
     })
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: listener } = supabase.auth.onAuthStateChange((event, session) => {
       setUser(session?.user ?? null)
+      if (event === 'PASSWORD_RECOVERY') {
+        setShowResetPassword(true)
+      }
     })
     return () => listener.subscription.unsubscribe()
   }, [])
@@ -141,6 +146,10 @@ function App() {
           onClose={() => setShowMyPage(false)}
           onDeleted={() => setUser(null)}
         />
+      )}
+
+      {showResetPassword && (
+        <ResetPasswordModal onClose={() => setShowResetPassword(false)} />
       )}
     </div>
   )

@@ -195,3 +195,56 @@
   height: 1px;
   background: #2a2a2a;
 }
+
+/* 비밀번호 찾기 */
+.back-btn {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 13px;
+  font-family: 'Noto Sans KR', sans-serif;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 24px;
+  transition: color 0.2s;
+  display: block;
+}
+
+.back-btn:hover {
+  color: #e8e0d0;
+}
+
+.forgot-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #e8e0d0;
+  letter-spacing: 2px;
+  margin: 0 0 12px 0;
+}
+
+.forgot-desc {
+  font-size: 13px;
+  color: #666;
+  margin: 0 0 28px 0;
+  line-height: 1.7;
+}
+
+.forgot-link {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 12px;
+  font-family: 'Noto Sans KR', sans-serif;
+  cursor: pointer;
+  padding: 0;
+  margin-top: 6px;
+  text-align: right;
+  align-self: flex-end;
+  transition: color 0.2s;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.forgot-link:hover {
+  color: #c0392b;
+}
