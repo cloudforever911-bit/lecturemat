@@ -75,7 +75,7 @@ export const MOCK_COURSES: Course[] = [
 
 export const MOCK_LECTURES: Record<string, Lecture[]> = {
   'mock-course-free': [
-    { id: 'lec-f-1', course_id: 'mock-course-free', title: '1강 — 수학을 왜 어렵게 느끼는가', youtube_url: '', order_index: 1 },
+    { id: 'lec-f-1', course_id: 'mock-course-free', title: '1강 — 수학을 왜 어렵게 느끼는가', youtube_url: 'https://youtu.be/eUq24nM6swg?si=aq5sF8rTXcvHk7oj', order_index: 1 },
     { id: 'lec-f-2', course_id: 'mock-course-free', title: '2강 — 개념을 외우지 않고 이해하는 법', youtube_url: '', order_index: 2 },
     { id: 'lec-f-3', course_id: 'mock-course-free', title: '3강 — 원리로 푸는 첫 번째 문제', youtube_url: '', order_index: 3 },
     { id: 'lec-f-4', course_id: 'mock-course-free', title: '4강 — 다음 단계로 넘어가기 전 체크리스트', youtube_url: '', order_index: 4 },
