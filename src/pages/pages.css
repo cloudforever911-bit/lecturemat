@@ -257,6 +257,38 @@
 }
 .btn-go-course:hover { border-color: var(--accent); color: var(--text); }
 
+/* ── 무료 강의 강조 ── */
+.store-card--free {
+  border-color: rgba(44, 122, 75, 0.35) !important;
+  background: linear-gradient(135deg, #1e3a28, #1a2e22);
+  position: relative;
+}
+
+.store-card--free:hover {
+  border-color: #2c7a4b !important;
+  box-shadow: 0 12px 32px rgba(44, 122, 75, 0.2);
+}
+
+.free-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: #2c7a4b;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  padding: 3px 10px;
+}
+
+.btn-purchase--free {
+  background: #2c7a4b !important;
+  border-color: #3a9a60 !important;
+}
+.btn-purchase--free:hover:not(:disabled) {
+  background: #3a9a60 !important;
+}
+
 .purchase-badge {
   font-size: 11px;
   color: #6a9870;

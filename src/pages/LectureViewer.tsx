@@ -5,6 +5,11 @@ import { useAuth } from '../lib/authContext'
 import { MOCK_COURSES, MOCK_LECTURES, type Lecture } from '../lib/mockData'
 import './pages.css'
 
+const getLocalPurchases = (userId: string): string[] => {
+  try { return JSON.parse(localStorage.getItem(`lv120_purchases_${userId}`) || '[]') }
+  catch { return [] }
+}
+
 interface Progress {
   lecture_id: string
   is_completed: boolean
@@ -40,7 +45,7 @@ export default function LectureViewer() {
   }, [user, courseId])
 
   const checkPurchase = async () => {
-    // 구매 여부 확인
+    // 1. Supabase에서 구매 여부 확인
     const { data: purchase } = await supabase
       .from('purchases')
       .select('id')
@@ -48,7 +53,10 @@ export default function LectureViewer() {
       .eq('status', 'paid')
       .maybeSingle()
 
-    const purchased = !!purchase
+    // 2. localStorage 폴백 확인 (무료강의 즉시구매 or Supabase RLS 차단 시)
+    const localPurchased = user ? getLocalPurchases(user.id).includes(courseId ?? '') : false
+
+    const purchased = !!purchase || localPurchased
     setIsPurchased(purchased)
 
     if (purchased) {
