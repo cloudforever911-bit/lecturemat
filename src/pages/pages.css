@@ -941,6 +941,302 @@
 .vps-label { font-size: 13px; color: var(--text-muted); }
 .vps-value { font-size: 22px; font-weight: 700; color: var(--accent); font-family: 'Cinzel', serif; }
 
+/* ── 이북 페이지 ── */
+
+.ebook-notice {
+  display: flex;
+  gap: 20px;
+  background: rgba(100,180,100,0.06);
+  border: 1px solid rgba(100,180,100,0.2);
+  border-left: 3px solid #4a9a5a;
+  padding: 24px 28px;
+  margin-bottom: 48px;
+}
+.ebook-notice-icon {
+  font-size: 28px;
+  flex-shrink: 0;
+  line-height: 1;
+  margin-top: 2px;
+}
+.ebook-notice-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+.ebook-notice-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.8;
+  font-weight: 300;
+}
+.ebook-notice-desc strong { color: #7ddba4; font-weight: 700; }
+.ebook-notice-email {
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.ebook-notice-email strong { color: var(--text); }
+
+.ebook-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 28px;
+  margin-bottom: 52px;
+}
+
+.ebook-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 36px 28px 28px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s;
+}
+.ebook-card:hover {
+  border-color: var(--ebook-color, var(--accent));
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+}
+.ebook-card--bought {
+  border-color: rgba(74,154,90,0.4) !important;
+  background: linear-gradient(160deg, #1e3428, #1a2d22);
+}
+.ebook-card--bought:hover {
+  border-color: #4a9a5a !important;
+}
+
+.ebook-bought-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: #1e5c3a;
+  color: #7ddba4;
+  border: 1px solid #2c7a4b;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 3px 10px;
+}
+
+.ebook-card-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-family: 'Cinzel', serif;
+}
+.ebook-card-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 5px;
+}
+.ebook-card-subtitle {
+  font-size: 11px;
+  color: #5a7862;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.ebook-card-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.75;
+  font-weight: 300;
+  margin-bottom: 24px;
+  flex: 1;
+}
+
+.ebook-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+}
+.ebook-price {
+  font-family: 'Cinzel', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.btn-ebook-purchase {
+  background: var(--accent-dark);
+  border: 1px solid var(--accent);
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'Noto Sans KR', sans-serif;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.btn-ebook-purchase:hover:not(:disabled) { background: var(--accent); }
+.btn-ebook-purchase:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.btn-ebook-reorder {
+  background: rgba(74,154,90,0.12);
+  border: 1px solid #3a7a4a;
+  color: #7ddba4;
+  padding: 10px 18px;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: 'Noto Sans KR', sans-serif;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.btn-ebook-reorder:hover:not(:disabled) {
+  background: rgba(74,154,90,0.25);
+  border-color: #4a9a5a;
+}
+.btn-ebook-reorder:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.ebook-bottom-notice {
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ebook-bottom-notice p {
+  font-size: 12px;
+  color: #4a5a4a;
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* ── 이북 결제 완료 페이지 ── */
+
+.ebook-success-wrap {
+  max-width: 560px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 20px 0 60px;
+}
+.ebook-success-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(74,154,90,0.15);
+  border: 2px solid #4a9a5a;
+  color: #7ddba4;
+  font-size: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 28px;
+}
+.ebook-success-title {
+  font-size: clamp(22px, 4vw, 32px);
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+.ebook-success-sub {
+  font-size: 14px;
+  color: var(--text-muted);
+  font-weight: 300;
+  margin-bottom: 36px;
+}
+.ebook-success-box {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 28px 32px;
+  margin-bottom: 28px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.success-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+.success-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  font-weight: 700;
+  flex-shrink: 0;
+  width: 90px;
+  padding-top: 2px;
+}
+.success-value {
+  font-size: 14px;
+  color: var(--text);
+  font-weight: 500;
+}
+.success-value--mono {
+  font-family: monospace;
+  font-size: 12px;
+  color: var(--text-muted);
+  word-break: break-all;
+}
+.ebook-success-notice {
+  background: rgba(100,180,100,0.06);
+  border: 1px solid rgba(100,180,100,0.18);
+  border-left: 3px solid #4a9a5a;
+  padding: 18px 22px;
+  text-align: left;
+  margin-bottom: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ebook-success-notice p {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  font-weight: 300;
+}
+.ebook-success-notice strong { color: #7ddba4; font-weight: 700; }
+.ebook-success-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+}
+.btn-ebook-back {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--text-muted);
+  padding: 12px 24px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'Noto Sans KR', sans-serif;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.btn-ebook-back:hover { border-color: var(--accent); color: var(--text); }
+.btn-ebook-dashboard {
+  background: var(--accent-dark);
+  border: 1px solid var(--accent);
+  color: #fff;
+  padding: 12px 24px;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'Noto Sans KR', sans-serif;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.btn-ebook-dashboard:hover { background: var(--accent); }
+
 /* ── 반응형 ── */
 @media (max-width: 640px) {
   .page-inner { padding: 40px 16px 80px; }
@@ -948,4 +1244,6 @@
   .my-course-progress-bar { display: none; }
   .lecture-card-top { flex-wrap: wrap; }
   .dashboard-cards { grid-template-columns: 1fr; }
+  .ebook-notice { flex-direction: column; gap: 12px; }
+  .ebook-success-actions { flex-direction: column; }
 }

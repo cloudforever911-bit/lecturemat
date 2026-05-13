@@ -5,6 +5,8 @@ import MainPage from './pages/MainPage'
 import Dashboard from './pages/Dashboard'
 import CoursesPage from './pages/CoursesPage'
 import LectureViewer from './pages/LectureViewer'
+import EbookPage from './pages/EbookPage'
+import EbookSuccess from './pages/EbookSuccess'
 
 export default function App() {
   return (
@@ -12,6 +14,8 @@ export default function App() {
       <Route element={<Layout />}>
         <Route path="/" element={<MainPage />} />
         <Route path="/courses" element={<CoursesPage />} />
+        <Route path="/ebook" element={<EbookPage />} />
+        <Route path="/ebook/success" element={<EbookSuccess />} />
         <Route path="/store" element={<Navigate to="/courses" replace />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />

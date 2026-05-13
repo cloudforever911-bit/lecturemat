@@ -41,6 +41,7 @@ export default function Layout() {
           </Link>
           <div className="nav-links">
             <Link to="/courses" className="nav-link">강의 구매&amp;시청</Link>
+            <Link to="/ebook" className="nav-link">교재 구매</Link>
             {user && <Link to="/dashboard" className="nav-link">대시보드</Link>}
           </div>
           <div className="nav-actions">
