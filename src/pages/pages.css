@@ -151,6 +151,155 @@
   margin-top: auto;
 }
 
+/* ── 문의하기 카드 ── */
+.dash-card--contact {
+  background: none;
+  font-family: 'Noto Sans KR', sans-serif;
+  text-align: left;
+  cursor: pointer;
+}
+
+/* ── 문의하기 모달 ── */
+.contact-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  backdrop-filter: blur(4px);
+  padding: 24px;
+}
+
+.contact-modal {
+  position: relative;
+  background: var(--bg-surface);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 40px 36px;
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.2s;
+  line-height: 1;
+}
+.contact-close:hover { color: var(--text); }
+
+.contact-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.contact-icon {
+  font-size: 28px;
+}
+
+.contact-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.contact-intro {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  font-weight: 300;
+  margin: 0;
+}
+
+.contact-email-link {
+  display: inline-block;
+  color: var(--accent);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+  padding-bottom: 2px;
+  transition: opacity 0.2s;
+  align-self: flex-start;
+}
+.contact-email-link:hover { opacity: 0.75; }
+
+.contact-template {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contact-template-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+.contact-template-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contact-template-body p {
+  font-size: 14px;
+  color: var(--text);
+  margin: 0;
+  font-weight: 400;
+}
+
+.contact-template-line {
+  height: 1px;
+  background: rgba(255,255,255,0.06);
+  margin: 2px 0 6px;
+}
+
+.contact-template-footer {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 300;
+  margin: 0;
+  font-style: italic;
+}
+
+.btn-contact-send {
+  display: block;
+  text-align: center;
+  background: var(--accent-dark);
+  border: 1px solid var(--accent);
+  color: #fff;
+  padding: 13px 24px;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'Noto Sans KR', sans-serif;
+  letter-spacing: 2px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.btn-contact-send:hover {
+  background: var(--accent);
+}
+
 /* ── 강의 상점 ── */
 .store-grid {
   display: grid;
