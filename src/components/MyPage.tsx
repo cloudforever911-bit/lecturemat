@@ -64,12 +64,19 @@ export default function MyPage({ user, onClose, onDeleted }: Props) {
       return
     }
     setPhoneLoading(true)
-    const { error } = await supabase.auth.updateUser({ data: { phone_number: phoneInput } })
-    if (error) { setPhoneError(error.message) }
-    else {
-      setPhoneSuccess('전화번호가 저장되었습니다.')
-      setEditPhone(false)
-    }
+
+    // 1. auth user_metadata 저장
+    const { error: authError } = await supabase.auth.updateUser({ data: { phone_number: phoneInput } })
+    if (authError) { setPhoneError(authError.message); setPhoneLoading(false); return }
+
+    // 2. user_profiles 테이블에도 upsert (관리자 확인용)
+    await supabase.from('user_profiles').upsert(
+      { user_id: user.id, email: user.email, phone_number: phoneInput, updated_at: new Date().toISOString() },
+      { onConflict: 'user_id' }
+    )
+
+    setPhoneSuccess('전화번호가 저장되었습니다.')
+    setEditPhone(false)
     setPhoneLoading(false)
   }
 
