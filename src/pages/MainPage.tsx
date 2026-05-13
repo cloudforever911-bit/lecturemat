@@ -1,8 +1,13 @@
+import { useState } from 'react'
 import { useAuth } from '../lib/authContext'
 import '../App.css'
+import './pages.css'
+
+const CONTACT_EMAIL = 'cloudforever911@gmail.com'
 
 export default function MainPage() {
   const { user, openAuth } = useAuth()
+  const [campModal, setCampModal] = useState<'summer' | 'winter' | null>(null)
 
   return (
     <>
@@ -270,7 +275,7 @@ export default function MainPage() {
               <li>운동 + 식단 + 생체리듬 관리</li>
               <li>자습 집중 환경 제공</li>
             </ul>
-            <button className="btn-camp-apply" onClick={openAuth}>
+            <button className="btn-camp-apply" onClick={() => setCampModal('summer')}>
               신청 문의하기 →
             </button>
           </div>
@@ -288,7 +293,7 @@ export default function MainPage() {
               <li>운동 + 식단 + 생체리듬 관리</li>
               <li>자습 집중 환경 제공</li>
             </ul>
-            <button className="btn-camp-apply" onClick={openAuth}>
+            <button className="btn-camp-apply" onClick={() => setCampModal('winter')}>
               신청 문의하기 →
             </button>
           </div>
@@ -304,6 +309,51 @@ export default function MainPage() {
           </div>
         </div>
       </section>
+
+      {/* ── 캠프 신청 문의 모달 ── */}
+      {campModal && (
+        <div className="camp-modal-backdrop" onClick={() => setCampModal(null)}>
+          <div className="camp-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="contact-close" onClick={() => setCampModal(null)}>✕</button>
+
+            <div className="camp-modal-header">
+              <span className="camp-modal-icon">{campModal === 'summer' ? '☀' : '❄'}</span>
+              <h2 className="camp-modal-title">
+                {campModal === 'summer' ? '여름방학' : '겨울방학'} 시즌 훈련소 신청
+              </h2>
+            </div>
+
+            <p className="camp-modal-intro">
+              문의는 아래 이메일로 연락 부탁드립니다.<br />
+              내용을 읽고 참가 여부를 개별 안내해드리겠습니다.
+            </p>
+
+            <a href={`mailto:${CONTACT_EMAIL}`} className="contact-email-link">
+              {CONTACT_EMAIL}
+            </a>
+
+            <div className="contact-template">
+              <p className="contact-template-label">[ 문의 양식 ]</p>
+              <div className="contact-template-body">
+                <p>📌 제목 : <em>[오프라인 {campModal === 'summer' ? '여름' : '겨울'}방학시즌 훈련소 문의드립니다]</em></p>
+                <div className="contact-template-line" />
+                <p>🎯 참가 동기 및 이유를 자유롭게 작성해 주세요.</p>
+                <div className="contact-template-line" />
+              </div>
+              <p className="contact-template-footer">
+                내용을 검토 후 참가 가능 여부를 이메일로 회신드리겠습니다 😊
+              </p>
+            </div>
+
+            <a
+              href={`mailto:${CONTACT_EMAIL}?subject=[오프라인 ${campModal === 'summer' ? '여름' : '겨울'}방학시즌 훈련소 문의드립니다]&body=안녕하세요.%0D%0A%0D%0A참가 동기 및 이유 :%0D%0A%0D%0A`}
+              className="btn-contact-send"
+            >
+              이메일 앱으로 바로 작성하기 →
+            </a>
+          </div>
+        </div>
+      )}
 
       <footer className="footer">
         <p>© 2025 Lv120 수학 · All rights reserved</p>

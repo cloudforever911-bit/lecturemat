@@ -929,6 +929,51 @@ cite {
   font-weight: 300;
 }
 
+/* ── 캠프 신청 모달 ── */
+.camp-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.78);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+.camp-modal {
+  background: var(--bg-surface);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 48px 44px;
+  max-width: 520px;
+  width: 100%;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.camp-modal-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.camp-modal-icon {
+  font-size: 32px;
+  line-height: 1;
+}
+.camp-modal-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.3px;
+}
+.camp-modal-intro {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.8;
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+
 /* ── FOOTER ── */
 .footer {
   padding: 40px 24px;
