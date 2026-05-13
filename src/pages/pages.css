@@ -941,6 +941,66 @@
 .vps-label { font-size: 13px; color: var(--text-muted); }
 .vps-value { font-size: 22px; font-weight: 700; color: var(--accent); font-family: 'Cinzel', serif; }
 
+/* ── BIG EVENT 배너 ── */
+.event-banner {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: linear-gradient(135deg, #2a1800 0%, #1e1200 100%);
+  border: 1px solid rgba(255,180,50,0.35);
+  border-left: 4px solid #e8a020;
+  padding: 20px 28px;
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+}
+.event-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 8px,
+    rgba(255,180,50,0.03) 8px,
+    rgba(255,180,50,0.03) 9px
+  );
+}
+.event-banner-tag {
+  background: #e8a020;
+  color: #1a0e00;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  padding: 6px 12px;
+  white-space: nowrap;
+  font-family: 'Cinzel', serif;
+  flex-shrink: 0;
+  position: relative;
+}
+.event-banner-body {
+  position: relative;
+}
+.event-banner-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #f5d080;
+  margin-bottom: 6px;
+  letter-spacing: 0.3px;
+}
+.event-banner-title strong {
+  color: #ffcc44;
+  font-size: 17px;
+}
+.event-banner-desc {
+  font-size: 12px;
+  color: #a08040;
+  line-height: 1.6;
+  font-weight: 300;
+}
+.event-banner-desc strong { color: #f5c842; font-weight: 700; }
+.event-banner-desc s { opacity: 0.55; }
+
 /* ── 이북 페이지 ── */
 
 .ebook-notice {

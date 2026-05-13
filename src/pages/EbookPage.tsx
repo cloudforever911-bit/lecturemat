@@ -125,6 +125,18 @@ export default function EbookPage() {
     <div className="page-wrapper">
       <div className="page-inner">
 
+        {/* BIG EVENT 배너 */}
+        <div className="event-banner">
+          <div className="event-banner-tag">BIG EVENT</div>
+          <div className="event-banner-body">
+            <p className="event-banner-title">계좌이체 결제 시 <strong>₩3,000 할인!</strong></p>
+            <p className="event-banner-desc">
+              교재 정가 <s>₩28,000</s> → 계좌이체 시 <strong>₩25,000</strong>&nbsp;·&nbsp;
+              입금 후 대시보드 문의하기로 주문 내역을 남겨주세요.
+            </p>
+          </div>
+        </div>
+
         <div className="page-header">
           <span className="page-eyebrow">E-BOOK</span>
           <h1 className="page-title">교재 구매</h1>

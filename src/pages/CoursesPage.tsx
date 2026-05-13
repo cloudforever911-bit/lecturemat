@@ -186,6 +186,18 @@ export default function CoursesPage() {
   return (
     <div className="page-wrapper">
       <div className="page-inner">
+        {/* BIG EVENT 배너 */}
+        <div className="event-banner">
+          <div className="event-banner-tag">BIG EVENT</div>
+          <div className="event-banner-body">
+            <p className="event-banner-title">계좌이체 결제 시 <strong>₩30,000 할인!</strong></p>
+            <p className="event-banner-desc">
+              강의 정가 <s>₩400,000</s> → 계좌이체 시 <strong>₩370,000</strong>&nbsp;·&nbsp;
+              입금 후 대시보드 문의하기로 주문 내역을 남겨주세요.
+            </p>
+          </div>
+        </div>
+
         <div className="page-header">
           <span className="page-eyebrow">COURSES</span>
           <h1 className="page-title">강의 구매&amp;시청</h1>
