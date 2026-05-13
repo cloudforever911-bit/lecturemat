@@ -6,8 +6,18 @@ import { MOCK_COURSES, MOCK_LECTURES, type Lecture } from '../lib/mockData'
 import './pages.css'
 
 const getLocalPurchases = (userId: string): string[] => {
-  try { return JSON.parse(localStorage.getItem(`lv120_purchases_${userId}`) || '[]') }
-  catch { return [] }
+  try {
+    // v2 포맷 (만료일 포함)
+    const v2Raw = localStorage.getItem(`lv120_purchases_v2_${userId}`)
+    if (v2Raw) {
+      const records = JSON.parse(v2Raw) as { courseId: string; expiresAt: string }[]
+      return records
+        .filter(p => new Date(p.expiresAt).getTime() > Date.now())
+        .map(p => p.courseId)
+    }
+    // v1 포맷 (구버전 호환)
+    return JSON.parse(localStorage.getItem(`lv120_purchases_${userId}`) || '[]')
+  } catch { return [] }
 }
 
 interface Progress {
@@ -45,18 +55,27 @@ export default function LectureViewer() {
   }, [user, courseId])
 
   const checkPurchase = async () => {
-    // 1. Supabase에서 구매 여부 확인
+    // 1. Supabase에서 구매 여부 + 만료 확인
     const { data: purchase } = await supabase
       .from('purchases')
-      .select('id')
+      .select('id, created_at, expires_at')
       .eq('course_id', courseId)
       .eq('status', 'paid')
       .maybeSingle()
 
+    // 만료 검사: expires_at이 있으면 그걸, 없으면 created_at+6개월
+    const isDbValid = (() => {
+      if (!purchase) return false
+      const exp = purchase.expires_at
+        ? new Date(purchase.expires_at)
+        : (() => { const d = new Date(purchase.created_at); d.setMonth(d.getMonth() + 6); return d })()
+      return exp.getTime() > Date.now()
+    })()
+
     // 2. localStorage 폴백 확인 (무료강의 즉시구매 or Supabase RLS 차단 시)
     const localPurchased = user ? getLocalPurchases(user.id).includes(courseId ?? '') : false
 
-    const purchased = !!purchase || localPurchased
+    const purchased = isDbValid || localPurchased
     setIsPurchased(purchased)
 
     if (purchased) {
@@ -153,7 +172,7 @@ export default function LectureViewer() {
   return (
     <div className="page-wrapper">
       <div className="page-inner">
-        <Link to="/my-courses" className="viewer-back">← 내 강의 목록</Link>
+        <Link to="/courses" className="viewer-back">← 강의 목록</Link>
 
         <div className="page-header">
           <span className="page-eyebrow">{course.level || course.category || 'LECTURE'}</span>

@@ -40,8 +40,7 @@ export default function Layout() {
             <span className="nav-logo">Lv120</span>
           </Link>
           <div className="nav-links">
-            <Link to="/store" className="nav-link">강의 상점</Link>
-            {user && <Link to="/my-courses" className="nav-link">내 강의</Link>}
+            <Link to="/courses" className="nav-link">강의 구매&amp;시청</Link>
             {user && <Link to="/dashboard" className="nav-link">대시보드</Link>}
           </div>
           <div className="nav-actions">

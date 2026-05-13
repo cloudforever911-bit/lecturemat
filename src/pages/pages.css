@@ -311,6 +311,9 @@
   background: var(--bg-card);
   border: 1px solid rgba(255,255,255,0.06);
   padding: 36px 28px 28px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
   transition: all 0.3s;
 }
 
@@ -445,6 +448,133 @@
   border: 1px solid #3a5a42;
   padding: 3px 10px;
   letter-spacing: 1px;
+  margin-top: 14px;
+  display: inline-block;
+}
+
+/* ── 강의 구매&시청 — 보유 강의 상태 ── */
+
+.store-card--owned {
+  border-color: rgba(44,122,75,0.5) !important;
+  background: linear-gradient(160deg, #1e3a28 0%, #1a2d22 100%);
+}
+.store-card--owned:hover {
+  border-color: #2c7a4b !important;
+  box-shadow: 0 12px 36px rgba(44,122,75,0.18);
+}
+
+.store-card--expired {
+  opacity: 0.72;
+  filter: saturate(0.6);
+}
+
+/* D-day 배지 */
+.dday-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: #1e5c3a;
+  color: #7ddba4;
+  border: 1px solid #2c7a4b;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: 'Cinzel', serif;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+}
+.dday-badge--urgent {
+  background: #5c2e00;
+  color: #ffb066;
+  border-color: #a05020;
+}
+
+.expired-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: #3a1a1a;
+  color: #cc6666;
+  border: 1px solid #662222;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 4px 10px;
+}
+
+/* 만료일 표시 */
+.course-expire-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(44,122,75,0.08);
+  border: 1px solid rgba(44,122,75,0.2);
+  margin-bottom: 20px;
+}
+.course-expire-info--expired {
+  background: rgba(180,60,60,0.08);
+  border-color: rgba(180,60,60,0.2);
+}
+.expire-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+.expire-date {
+  font-size: 12px;
+  color: #7ddba4;
+  font-weight: 500;
+}
+.course-expire-info--expired .expire-date {
+  color: #cc7777;
+}
+
+/* 시청하기 버튼 */
+.btn-watch {
+  background: #1a4e2c;
+  border: 1px solid #2c7a4b;
+  color: #7ddba4;
+  padding: 10px 20px;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'Noto Sans KR', sans-serif;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn-watch:hover {
+  background: #2c7a4b;
+  color: #fff;
+  border-color: #3a9a60;
+}
+
+/* 재구매 버튼 */
+.btn-purchase--renew {
+  background: #3a1a1a !important;
+  border-color: #662222 !important;
+  color: #ffaaaa !important;
+}
+.btn-purchase--renew:hover:not(:disabled) {
+  background: #662222 !important;
+  color: #fff !important;
+}
+
+/* 가격 — 수강 중 상태 */
+.store-price--active {
+  font-size: 13px;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #6a9870;
+  letter-spacing: 2px;
+}
+
+/* subtitle highlight */
+.subtitle-highlight {
+  color: #7ddba4;
+  font-weight: 600;
 }
 
 /* ── 내 강의 목록 ── */

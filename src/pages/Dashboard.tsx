@@ -20,20 +20,11 @@ export default function Dashboard() {
         </div>
 
         <div className="dashboard-cards">
-          <Link to="/store" className="dash-card">
+          <Link to="/courses" className="dash-card">
             <span className="dash-card-icon">∮</span>
-            <span className="dash-card-title">강의 구매 상점</span>
+            <span className="dash-card-title">강의 구매&amp;시청</span>
             <span className="dash-card-desc">
-              레벨별 강의 상품을 확인하고 원하는 커리큘럼을 구매하세요.
-            </span>
-            <span className="dash-card-arrow">→</span>
-          </Link>
-
-          <Link to="/my-courses" className="dash-card">
-            <span className="dash-card-icon">∑</span>
-            <span className="dash-card-title">내 강의 목록</span>
-            <span className="dash-card-desc">
-              구매한 강의를 확인하고 수강 진도를 이어가세요.
+              강의를 구매하거나, 구매한 강의를 바로 시청하세요. 구매 후 6개월 수강 가능.
             </span>
             <span className="dash-card-arrow">→</span>
           </Link>
