@@ -58,16 +58,26 @@ const formatDDay = (dDay: number): string => {
 const formatExpireDate = (d: Date): string =>
   d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })
 
+// 유료 강의 마일리지 차감량 (강의 1개 = 1 M)
+const MILEAGE_COST = 1
+
 export default function CoursesPage() {
   const { user, openAuth } = useAuth()
   const [courses, setCourses] = useState<Course[]>([])
   const [purchases, setPurchases] = useState<PurchaseRecord[]>([])
   const [loadingId, setLoadingId] = useState<string | null>(null)
+  const [loadingMileageId, setLoadingMileageId] = useState<string | null>(null)
+  const [mileage, setMileage] = useState<number>(0)
 
   useEffect(() => { loadCourses() }, [])
   useEffect(() => {
-    if (user) loadPurchases()
-    else setPurchases([])
+    if (user) {
+      loadPurchases()
+      setMileage((user.user_metadata?.mileage as number) ?? 0)
+    } else {
+      setPurchases([])
+      setMileage(0)
+    }
   }, [user])
 
   const loadCourses = async () => {
@@ -105,6 +115,36 @@ export default function CoursesPage() {
 
   const getPurchase = (courseId: string): PurchaseRecord | null =>
     purchases.find(p => p.courseId === courseId) ?? null
+
+  const handleMileagePurchase = async (course: Course) => {
+    if (!user) { openAuth(); return }
+
+    if (mileage < MILEAGE_COST) {
+      alert(`마일리지가 부족합니다.\n보유: ${mileage} M  /  필요: ${MILEAGE_COST} M\n\n마일리지 충전은 관리자에게 문의해주세요.`)
+      return
+    }
+
+    setLoadingMileageId(course.id)
+
+    // 마일리지 차감 (낙관적 업데이트)
+    const newMileage = mileage - MILEAGE_COST
+    setMileage(newMileage)
+    await supabase.auth.updateUser({ data: { mileage: newMileage } })
+
+    // 동일한 구매 권한 부여 (6개월)
+    const expiresAt = sixMonthsFromNow()
+    const { error } = await supabase.from('purchases').insert({
+      user_id: user.id,
+      course_id: course.id,
+      amount_paid: 0,
+      status: 'paid',
+      expires_at: expiresAt.toISOString(),
+    })
+    if (error) addLocalPurchase(user.id, course.id, expiresAt)
+
+    setPurchases(prev => [...prev.filter(p => p.courseId !== course.id), { courseId: course.id, expiresAt }])
+    setLoadingMileageId(null)
+  }
 
   const handlePurchase = async (course: Course) => {
     if (!user) { openAuth(); return }
@@ -153,6 +193,13 @@ export default function CoursesPage() {
             원하는 커리큘럼을 선택하고 수강을 시작하세요.&nbsp;
             <span className="subtitle-highlight">구매 후 6개월간 무제한 수강</span> 가능합니다.
           </p>
+          {user && (
+            <div className="mileage-bar">
+              <span className="mileage-bar-icon">◈</span>
+              <span className="mileage-bar-label">보유 마일리지</span>
+              <span className="mileage-bar-value">{mileage.toLocaleString()} M</span>
+            </div>
+          )}
         </div>
 
         <div className="store-grid">
@@ -160,6 +207,7 @@ export default function CoursesPage() {
             const c = course as Course & { color?: string; initial?: string; level?: string }
             const isFree = course.price === 0
             const isLoading = loadingId === course.id
+            const isLoadingMileage = loadingMileageId === course.id
             const purchase = getPurchase(course.id)
             const dDay = purchase ? calcDDay(purchase.expiresAt) : null
             const isActive = dDay !== null && dDay > 0
@@ -219,19 +267,31 @@ export default function CoursesPage() {
                       시청하기 →
                     </Link>
                   ) : (
-                    <button
-                      className={`btn-purchase${isFree ? ' btn-purchase--free' : ''}${isExpired ? ' btn-purchase--renew' : ''}`}
-                      onClick={() => handlePurchase(course)}
-                      disabled={isLoading}
-                    >
-                      {isLoading
-                        ? '처리 중...'
-                        : isExpired
-                        ? '재구매하기'
-                        : isFree
-                        ? '무료로 시작하기'
-                        : '구매하기'}
-                    </button>
+                    <div className="btn-purchase-group">
+                      <button
+                        className={`btn-purchase${isFree ? ' btn-purchase--free' : ''}${isExpired ? ' btn-purchase--renew' : ''}`}
+                        onClick={() => handlePurchase(course)}
+                        disabled={isLoading || isLoadingMileage}
+                      >
+                        {isLoading
+                          ? '처리 중...'
+                          : isExpired
+                          ? '재구매하기'
+                          : isFree
+                          ? '무료로 시작하기'
+                          : '구매하기'}
+                      </button>
+                      {!isFree && user && (
+                        <button
+                          className={`btn-mileage-purchase${mileage < MILEAGE_COST ? ' btn-mileage-purchase--low' : ''}`}
+                          onClick={() => handleMileagePurchase(course)}
+                          disabled={isLoading || isLoadingMileage}
+                          title={`마일리지 사용 (보유: ${mileage} M / 필요: ${MILEAGE_COST} M)`}
+                        >
+                          {isLoadingMileage ? '처리 중...' : `◈ 마일리지 구매`}
+                        </button>
+                      )}
+                    </div>
                   )}
                 </div>
 

@@ -8,6 +8,7 @@ const CONTACT_EMAIL = 'cloudforever911@gmail.com'
 export default function Dashboard() {
   const { user } = useAuth()
   const name = user?.user_metadata?.name || user?.email?.split('@')[0] || '회원'
+  const mileage = (user?.user_metadata?.mileage as number) ?? 0
   const [showContact, setShowContact] = useState(false)
 
   return (
@@ -29,14 +30,17 @@ export default function Dashboard() {
             <span className="dash-card-arrow">→</span>
           </Link>
 
-          <div className="dash-card" style={{ cursor: 'default', opacity: 0.6 }}>
-            <span className="dash-card-icon">⊞</span>
-            <span className="dash-card-title">학교 인증</span>
+          <div className="dash-card dash-card--mileage" style={{ cursor: 'default' }}>
+            <span className="dash-card-icon">◈</span>
+            <span className="dash-card-title">나의 마일리지</span>
+            <div className="mileage-display">
+              <span className="mileage-value">{mileage.toLocaleString()}</span>
+              <span className="mileage-unit">M</span>
+            </div>
             <span className="dash-card-desc">
-              재학 중인 학교를 인증하면 추가 혜택을 받을 수 있습니다.<br />
-              <em style={{ fontSize: 11, letterSpacing: 1 }}>— 준비 중 —</em>
+              마일리지로 강의를 바로 수강할 수 있습니다.<br />
+              충전 문의는 이메일로 연락해주세요.
             </span>
-            <span className="dash-card-arrow" style={{ color: '#3a5240' }}>→</span>
           </div>
 
           <button className="dash-card dash-card--contact" onClick={() => setShowContact(true)}>
