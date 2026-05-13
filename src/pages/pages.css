@@ -73,15 +73,16 @@
 .nav-link {
   text-decoration: none;
   font-size: 13px;
-  color: var(--text-muted);
+  color: var(--text);
   letter-spacing: 1px;
   transition: color 0.2s;
   font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 500;
 }
 
 .nav-link:hover,
 .nav-link.active {
-  color: var(--text);
+  color: #fff;
 }
 
 /* ── 대시보드 ── */
@@ -1297,10 +1298,81 @@
 }
 .btn-ebook-dashboard:hover { background: var(--accent); }
 
+/* ── 햄버거 버튼 ── */
+.btn-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  flex-shrink: 0;
+}
+.hamburger-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: all 0.25s;
+  transform-origin: center;
+}
+
+/* ── 모바일 드롭다운 메뉴 ── */
+.mobile-menu {
+  position: fixed;
+  top: 56px;
+  left: 0;
+  right: 0;
+  background: rgba(15, 26, 18, 0.98);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  padding: 12px 0 20px;
+}
+.mobile-menu-link {
+  display: block;
+  padding: 14px 28px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  text-decoration: none;
+  font-family: 'Noto Sans KR', sans-serif;
+  letter-spacing: 0.5px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s;
+  width: 100%;
+}
+.mobile-menu-link:hover {
+  background: rgba(255,255,255,0.05);
+  color: #fff;
+}
+.mobile-menu-divider {
+  height: 1px;
+  background: rgba(255,255,255,0.07);
+  margin: 8px 0;
+}
+
 /* ── 반응형 ── */
+@media (max-width: 768px) {
+  .btn-hamburger { display: flex; }
+  .nav-links { display: none; }
+  .btn-nav-ghost { display: none; }
+  .btn-nav-outline { display: none; }
+  .btn-nav-fill { display: none; }
+}
+
 @media (max-width: 640px) {
   .page-inner { padding: 40px 16px 80px; }
-  .nav-links { display: none; }
   .my-course-progress-bar { display: none; }
   .lecture-card-top { flex-wrap: wrap; }
   .dashboard-cards { grid-template-columns: 1fr; }
