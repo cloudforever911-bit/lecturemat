@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
+import { supabase } from '../lib/supabase'
 import { useAuth } from '../lib/authContext'
 import './pages.css'
 
@@ -29,15 +30,34 @@ export default function EbookSuccess() {
 
   const ebookId = params.get('ebookId') ?? ''
   const orderId = params.get('orderId') ?? ''
+  const paymentKey = params.get('paymentKey') ?? ''
   const amount = params.get('amount') ?? ''
   const ebookTitle = EBOOK_TITLES[ebookId] ?? '교재'
 
   useEffect(() => {
     if (user && ebookId && !recorded) {
-      addLocalPurchase(user.id, ebookId)
+      recordPurchase()
       setRecorded(true)
     }
   }, [user, ebookId, recorded])
+
+  const recordPurchase = async () => {
+    if (!user) return
+
+    // localStorage 기록
+    addLocalPurchase(user.id, ebookId)
+
+    // Supabase 기록 (관리자 확인용)
+    await supabase.from('ebook_purchases').insert({
+      user_id: user.id,
+      user_email: user.email,
+      ebook_id: ebookId,
+      ebook_title: ebookTitle,
+      amount_paid: Number(amount) || 28000,
+      order_id: orderId,
+      payment_key: paymentKey,
+    })
+  }
 
   return (
     <div className="page-wrapper">
