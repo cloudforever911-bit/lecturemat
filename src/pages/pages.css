@@ -1,0 +1,540 @@
+/* ── 내부 페이지 공통 레이아웃 ── */
+
+.page-wrapper {
+  min-height: 100vh;
+  padding-top: 72px;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 31px,
+      rgba(255,255,255,0.025) 31px,
+      rgba(255,255,255,0.025) 32px
+    ),
+    var(--bg);
+}
+
+.page-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 60px 24px 100px;
+}
+
+.page-header {
+  margin-bottom: 52px;
+}
+
+.page-eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 6px;
+  color: var(--accent);
+  border-top: 1px solid var(--accent);
+  border-bottom: 1px solid var(--accent);
+  padding: 4px 14px;
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+
+.page-title {
+  font-size: clamp(24px, 4vw, 38px);
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+}
+
+.page-subtitle {
+  font-size: 15px;
+  color: var(--text-muted);
+  font-weight: 300;
+}
+
+/* ── solid nav ── */
+.nav-solid {
+  background: rgba(21, 34, 25, 0.97) !important;
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+/* ── nav links ── */
+.nav-logo-link {
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex: 1;
+  padding-left: 40px;
+}
+
+.nav-link {
+  text-decoration: none;
+  font-size: 13px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  transition: color 0.2s;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--text);
+}
+
+/* ── 대시보드 ── */
+.dashboard-greeting {
+  font-size: clamp(18px, 3vw, 28px);
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.dashboard-sub {
+  font-size: 14px;
+  color: var(--text-muted);
+  font-weight: 300;
+  margin-bottom: 52px;
+}
+
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+.dash-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 40px 32px;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  transition: all 0.3s;
+}
+
+.dash-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+}
+
+.dash-card-icon {
+  font-size: 36px;
+  line-height: 1;
+  font-family: 'Cinzel', serif;
+  color: var(--accent);
+}
+
+.dash-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.5px;
+}
+
+.dash-card-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.dash-card-arrow {
+  font-size: 18px;
+  color: var(--accent);
+  margin-top: auto;
+}
+
+/* ── 강의 상점 ── */
+.store-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 28px;
+}
+
+.store-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 36px 28px 28px;
+  transition: all 0.3s;
+}
+
+.store-card:hover {
+  border-color: var(--accent-color, var(--accent));
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+}
+
+.store-card-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--accent-color, var(--accent));
+  color: #fff;
+  font-size: 28px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-family: 'Cinzel', serif;
+}
+
+.store-card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.store-card-level {
+  font-size: 11px;
+  color: #5a7862;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.store-card-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  font-weight: 300;
+  margin-bottom: 24px;
+}
+
+.store-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.store-price {
+  font-family: 'Cinzel', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.btn-purchase {
+  background: var(--accent-dark);
+  border: 1px solid var(--accent);
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'Noto Sans KR', sans-serif;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.btn-purchase:hover:not(:disabled) { background: var(--accent); }
+.btn-purchase:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.btn-go-course {
+  background: #243C2C;
+  border: 1px solid #3a5240;
+  color: #9ab89e;
+  padding: 10px 20px;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'Noto Sans KR', sans-serif;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn-go-course:hover { border-color: var(--accent); color: var(--text); }
+
+.purchase-badge {
+  font-size: 11px;
+  color: #6a9870;
+  background: rgba(90,120,80,0.15);
+  border: 1px solid #3a5a42;
+  padding: 3px 10px;
+  letter-spacing: 1px;
+}
+
+/* ── 내 강의 목록 ── */
+.my-courses-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.my-course-row {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 28px 32px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.my-course-row:hover {
+  border-color: var(--accent);
+  transform: translateX(4px);
+}
+
+.my-course-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--avatar-color, var(--accent));
+  color: #fff;
+  font-size: 22px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cinzel', serif;
+  flex-shrink: 0;
+}
+
+.my-course-info { flex: 1; }
+
+.my-course-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.my-course-meta {
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+
+.my-course-progress-bar {
+  width: 160px;
+  flex-shrink: 0;
+}
+
+.progress-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  text-align: right;
+}
+
+.progress-track {
+  height: 4px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width 0.4s;
+}
+
+.my-course-arrow {
+  font-size: 18px;
+  color: var(--text-muted);
+  transition: color 0.2s;
+}
+.my-course-row:hover .my-course-arrow { color: var(--accent); }
+
+.empty-state {
+  text-align: center;
+  padding: 80px 24px;
+  color: var(--text-muted);
+}
+
+.empty-state p { font-size: 15px; margin-bottom: 24px; font-weight: 300; }
+
+.btn-outline-accent {
+  display: inline-block;
+  background: none;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 12px 32px;
+  font-size: 13px;
+  font-family: 'Noto Sans KR', sans-serif;
+  letter-spacing: 2px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-outline-accent:hover { background: var(--accent); color: #fff; }
+
+/* ── 강의 뷰어 ── */
+.viewer-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 1px;
+  margin-bottom: 36px;
+  transition: color 0.2s;
+}
+.viewer-back:hover { color: var(--text); }
+
+.lecture-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lecture-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 24px 28px;
+  transition: border-color 0.2s;
+}
+.lecture-card:hover { border-color: rgba(123,66,24,0.3); }
+
+.lecture-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.lecture-card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  flex: 1;
+}
+
+.btn-youtube {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #1a0a0a;
+  border: 1px solid #5a2020;
+  color: #e05050;
+  padding: 7px 16px;
+  font-size: 12px;
+  font-family: 'Noto Sans KR', sans-serif;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: all 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.btn-youtube:hover { background: #2a0a0a; border-color: #e05050; }
+
+.btn-youtube-locked {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.06);
+  color: #3a4a3a;
+  padding: 7px 16px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  cursor: not-allowed;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.checkboxes-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+}
+
+.checkbox-item input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.checkbox-item input[type="checkbox"]:disabled {
+  cursor: not-allowed;
+  opacity: 0.3;
+}
+
+.checkbox-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  user-select: none;
+}
+
+.checkbox-item.checked .checkbox-label {
+  color: var(--text);
+}
+
+.viewer-locked {
+  text-align: center;
+  padding: 80px 24px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: var(--bg-card2);
+}
+
+.viewer-locked-icon {
+  font-size: 48px;
+  margin-bottom: 20px;
+  opacity: 0.4;
+}
+
+.viewer-locked h3 {
+  font-size: 20px;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.viewer-locked p {
+  font-size: 14px;
+  color: var(--text-muted);
+  font-weight: 300;
+  margin-bottom: 28px;
+}
+
+/* ── 진도 요약 바 ── */
+.viewer-progress-summary {
+  background: var(--bg-card2);
+  border: 1px solid rgba(255,255,255,0.05);
+  padding: 20px 28px;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.vps-label { font-size: 13px; color: var(--text-muted); }
+.vps-value { font-size: 22px; font-weight: 700; color: var(--accent); font-family: 'Cinzel', serif; }
+
+/* ── 반응형 ── */
+@media (max-width: 640px) {
+  .page-inner { padding: 40px 16px 80px; }
+  .nav-links { display: none; }
+  .my-course-progress-bar { display: none; }
+  .lecture-card-top { flex-wrap: wrap; }
+  .dashboard-cards { grid-template-columns: 1fr; }
+}

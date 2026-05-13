@@ -157,3 +157,94 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+/* 전화번호 */
+.info-row--editing {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.info-value-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-edit-inline {
+  background: none;
+  border: 1px solid #3a5240;
+  color: #7a9880;
+  padding: 4px 12px;
+  font-size: 11px;
+  font-family: 'Noto Sans KR', sans-serif;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.btn-edit-inline:hover {
+  border-color: #7B4218;
+  color: #c8a070;
+}
+
+.phone-edit-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.phone-edit-form input[type="tel"] {
+  width: 100%;
+  background: #0d1a10;
+  border: 1px solid #2a4030;
+  color: #e8e0d0;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-family: 'Noto Sans KR', sans-serif;
+  letter-spacing: 2px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.phone-edit-form input[type="tel"]:focus {
+  border-color: #7B4218;
+}
+
+.phone-edit-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-cancel-small {
+  flex: 1;
+  background: none;
+  border: 1px solid #2a2a2a;
+  color: #666;
+  padding: 8px;
+  font-size: 12px;
+  font-family: 'Noto Sans KR', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-cancel-small:hover:not(:disabled) {
+  border-color: #555;
+  color: #aaa;
+}
+.btn-cancel-small:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn-save-small {
+  flex: 2;
+  background: #7B4218;
+  border: 1px solid #a0682a;
+  color: #fff;
+  padding: 8px;
+  font-size: 12px;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-save-small:hover:not(:disabled) { background: #a0682a; }
+.btn-save-small:disabled { opacity: 0.5; cursor: not-allowed; }

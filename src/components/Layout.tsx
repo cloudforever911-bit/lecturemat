@@ -1,0 +1,81 @@
+import { useEffect, useState } from 'react'
+import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom'
+import type { User } from '@supabase/supabase-js'
+import { supabase } from '../lib/supabase'
+import { AuthContext } from '../lib/authContext'
+import AuthModal from './AuthModal'
+import MyPage from './MyPage'
+import ResetPasswordModal from './ResetPasswordModal'
+
+export default function Layout() {
+  const [user, setUser] = useState<User | null>(null)
+  const [showAuth, setShowAuth] = useState(false)
+  const [showMyPage, setShowMyPage] = useState(false)
+  const [showResetPassword, setShowResetPassword] = useState(false)
+
+  const navigate = useNavigate()
+  const location = useLocation()
+  const isMain = location.pathname === '/'
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => setUser(data.session?.user ?? null))
+    const { data: listener } = supabase.auth.onAuthStateChange((event, session) => {
+      setUser(session?.user ?? null)
+      if (event === 'PASSWORD_RECOVERY') setShowResetPassword(true)
+    })
+    return () => listener.subscription.unsubscribe()
+  }, [])
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut()
+    navigate('/')
+  }
+
+  return (
+    <AuthContext.Provider value={{ user, openAuth: () => setShowAuth(true), openMyPage: () => setShowMyPage(true) }}>
+      <div className="aot-wrapper">
+
+        <nav className={`aot-nav${isMain ? '' : ' nav-solid'}`}>
+          <Link to="/" className="nav-logo-link">
+            <span className="nav-logo">Lv120</span>
+          </Link>
+          <div className="nav-links">
+            <Link to="/store" className="nav-link">강의 상점</Link>
+            {user && <Link to="/my-courses" className="nav-link">내 강의</Link>}
+            {user && <Link to="/dashboard" className="nav-link">대시보드</Link>}
+          </div>
+          <div className="nav-actions">
+            {user ? (
+              <>
+                <button className="btn-nav-ghost" onClick={() => setShowMyPage(true)}>
+                  {user.email}
+                </button>
+                <button className="btn-nav-outline" onClick={() => setShowMyPage(true)}>
+                  마이페이지
+                </button>
+                <button className="btn-nav-outline" onClick={handleLogout}>로그아웃</button>
+              </>
+            ) : (
+              <>
+                <button className="btn-nav-outline" onClick={() => setShowAuth(true)}>로그인</button>
+                <button className="btn-nav-fill" onClick={() => setShowAuth(true)}>회원가입</button>
+              </>
+            )}
+          </div>
+        </nav>
+
+        <Outlet />
+
+        {showAuth && (
+          <AuthModal onClose={() => setShowAuth(false)} onSuccess={() => setShowAuth(false)} />
+        )}
+        {showMyPage && user && (
+          <MyPage user={user} onClose={() => setShowMyPage(false)} onDeleted={() => { setUser(null); navigate('/') }} />
+        )}
+        {showResetPassword && (
+          <ResetPasswordModal onClose={() => setShowResetPassword(false)} />
+        )}
+      </div>
+    </AuthContext.Provider>
+  )
+}
