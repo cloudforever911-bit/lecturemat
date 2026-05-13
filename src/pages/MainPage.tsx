@@ -238,6 +238,73 @@ export default function MainPage() {
         </div>
       </section>
 
+      {/* ── SECTION 6: OFFLINE CAMP ── */}
+      <section className="camp-section">
+        <div className="section-header">
+          <span className="section-label">OFFLINE CAMP</span>
+          <h2 className="section-title">오프라인 신청</h2>
+          <p className="section-desc">수학만점 인간개조 캠프 — 하숙집 24시간 완전 몰입 훈련소</p>
+        </div>
+
+        <div className="camp-intro">
+          <p className="camp-intro-text">
+            군 입대를 해서 <strong>정신개조를 당한다</strong>고 생각하시면 됩니다.<br />
+            저의 하숙집에서 24시간 오직 수학만을 위해 케어하고 훈련시켜드립니다.
+          </p>
+          <p className="camp-intro-sub">
+            * 공부 외 시간에는 운동 (뜀걸음 / 근력), 살 빠지는 식단, 집중력 강화 생체리듬, 자습만을 위해 케어 해드림 *
+          </p>
+        </div>
+
+        <div className="camp-cards">
+          {/* 여름방학 */}
+          <div className="camp-card camp-card--summer">
+            <div className="camp-card-season">☀ 여름방학 시즌</div>
+            <div className="camp-price-wrap">
+              <span className="camp-price">₩ 1,800,000</span>
+              <span className="camp-price-unit">/ 1인</span>
+            </div>
+            <ul className="camp-features">
+              <li>24시간 전담 밀착 케어</li>
+              <li>개인 맞춤 수학 훈련 커리큘럼</li>
+              <li>운동 + 식단 + 생체리듬 관리</li>
+              <li>자습 집중 환경 제공</li>
+            </ul>
+            <button className="btn-camp-apply" onClick={openAuth}>
+              신청 문의하기 →
+            </button>
+          </div>
+
+          {/* 겨울방학 */}
+          <div className="camp-card camp-card--winter">
+            <div className="camp-card-season">❄ 겨울방학 시즌</div>
+            <div className="camp-price-wrap">
+              <span className="camp-price">₩ 1,600,000</span>
+              <span className="camp-price-unit">/ 1인</span>
+            </div>
+            <ul className="camp-features">
+              <li>24시간 전담 밀착 케어</li>
+              <li>개인 맞춤 수학 훈련 커리큘럼</li>
+              <li>운동 + 식단 + 생체리듬 관리</li>
+              <li>자습 집중 환경 제공</li>
+            </ul>
+            <button className="btn-camp-apply" onClick={openAuth}>
+              신청 문의하기 →
+            </button>
+          </div>
+        </div>
+
+        {/* 준비물 */}
+        <div className="camp-supplies">
+          <p className="camp-supplies-label">[ 준비물 ]</p>
+          <div className="camp-supplies-list">
+            {['필기구', '베개', '여벌 양말 & 속옷', '강인한 정신력', '수건'].map((item) => (
+              <span className="camp-supply-item" key={item}>{item}</span>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <footer className="footer">
         <p>© 2025 Lv120 수학 · All rights reserved</p>
         <p className="footer-sub">본 사이트의 모든 강의 콘텐츠는 저작권법의 보호를 받습니다.</p>
