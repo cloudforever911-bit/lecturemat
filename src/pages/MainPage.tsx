@@ -186,7 +186,7 @@ export default function MainPage() {
       <section className="preview-section">
         <div className="section-header">
           <span className="section-label">PREVIEW</span>
-          <h2 className="section-title">맛보기</h2>
+          <h2 className="section-title">OT 맛보기</h2>
           <p className="section-desc">수강생 후기와 무료 예시 강의로 먼저 확인하세요.</p>
         </div>
         <div className="reviews-grid">
@@ -206,10 +206,13 @@ export default function MainPage() {
           ))}
         </div>
         <div className="video-area">
-          <div className="video-placeholder">
-            <div className="video-play-btn">▶</div>
-            <p className="video-title">무료 예시 강의 — 중학교 수학 1강</p>
-            <p className="video-sub">강의 스타일을 먼저 확인해보세요. 완전 무료.</p>
+          <div className="video-embed-wrap">
+            <iframe
+              src="https://www.youtube.com/embed/xhm6q8t0Bkc"
+              title="OT 맛보기"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
           </div>
         </div>
         {/* chalk fish */}
