@@ -213,7 +213,7 @@ export default function MainPage() {
         <div className="video-area">
           <div className="video-embed-wrap">
             <iframe
-              src="https://www.youtube.com/embed/xhm6q8t0Bkc"
+              src="https://www.youtube.com/embed/KEJwzmW2w0c"
               title="OT 맛보기"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
