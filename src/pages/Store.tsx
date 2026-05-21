@@ -57,36 +57,20 @@ export default function Store() {
     if (!user) { openAuth(); return }
     if (purchasedIds.has(course.id)) return
 
-    setLoadingId(course.id)
-
     if (course.price === 0) {
-      // ── 무료 강의: 즉시 구매 처리 ──
+      setLoadingId(course.id)
       const { error } = await supabase.from('purchases').insert({
         user_id: user.id,
         course_id: course.id,
         amount_paid: 0,
         status: 'paid',
       })
-      // Supabase 성공 여부와 관계없이 localStorage에도 기록 (RLS 차단 대비)
       if (error) addLocalPurchase(user.id, course.id)
       setPurchasedIds((prev) => new Set([...prev, course.id]))
+      setLoadingId(null)
     } else {
-      // ── 유료 강의: 토스페이먼츠 → Edge Function 연동 필요 ──
-      // TODO: supabase.functions.invoke('confirm-payment', { body: { courseId, amount } })
-      const { error } = await supabase.from('purchases').insert({
-        user_id: user.id,
-        course_id: course.id,
-        amount_paid: course.price,
-        status: 'paid',
-      })
-      if (!error) {
-        setPurchasedIds((prev) => new Set([...prev, course.id]))
-      } else {
-        alert('결제 시스템 연동 준비 중입니다.\n(토스페이먼츠 Edge Function 연동 필요)')
-      }
+      window.open('https://naver.me/GuCDrqoW', '_blank')
     }
-
-    setLoadingId(null)
   }
 
   return (
@@ -125,9 +109,14 @@ export default function Store() {
                 <div className="store-card-desc">{course.description}</div>
 
                 <div className="store-card-footer">
-                  <span className="store-price">
-                    {isFree ? '무 료' : `₩ ${course.price.toLocaleString()}`}
-                  </span>
+                  <div className="store-price-wrap">
+                    {!isFree && !bought && (
+                      <span className="price-original">₩ 500,000</span>
+                    )}
+                    <span className="store-price">
+                      {isFree ? '무 료' : `₩ ${course.price.toLocaleString()}`}
+                    </span>
+                  </div>
                   {bought ? (
                     <Link to={`/my-courses/${course.id}`} className="btn-go-course">
                       수강하기 →
@@ -147,6 +136,9 @@ export default function Store() {
                   )}
                 </div>
 
+                {!isFree && !bought && (
+                  <p className="price-note">(실제로 이 사이트의 주인장은 인당 중3기준 한달에 65만원씩 받고 과외하는 양반임)</p>
+                )}
                 {bought && (
                   <span className="purchase-badge">✓ {isFree ? '수강 중' : '구매 완료'}</span>
                 )}

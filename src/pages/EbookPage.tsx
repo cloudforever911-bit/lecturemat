@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react'
+import { supabase } from '../lib/supabase'
 import { useAuth } from '../lib/authContext'
 import './pages.css'
 
-// 토스페이먼츠 클라이언트 키 — 토스페이먼츠 대시보드에서 발급 후 교체
-const TOSS_CLIENT_KEY = 'test_ck_placeholder_replace_me'
+// 마일리지 1 M = ₩10,000 · 교재 ₩10,000 = 1 M
+const EBOOK_MILEAGE_COST = 1
 
-declare const TossPayments: (key: string) => {
-  requestPayment: (method: string, options: Record<string, unknown>) => Promise<void>
-}
+const PURCHASE_URL = 'https://naver.me/GuCDrqoW'
 
 interface Ebook {
   id: string
@@ -27,7 +26,7 @@ const EBOOKS: Ebook[] = [
     desc: '자연수, 정수, 유리수부터 기초 사칙연산까지 원리 중심으로 완벽 정리한 교재입니다. 수학을 처음 시작하는 분께 최적화되어 있습니다.',
     initial: 'Ⅰ',
     color: '#2c5282',
-    price: 28000,
+    price: 10000,
   },
   {
     id: 'eb2',
@@ -36,7 +35,7 @@ const EBOOKS: Ebook[] = [
     desc: '기초 평면도형과 입체도형의 성질을 체계적으로 정리합니다. 도형 영역을 집중 공략하고 싶은 분께 추천합니다.',
     initial: '圖',
     color: '#2c7a4b',
-    price: 28000,
+    price: 10000,
   },
   {
     id: 'eb3',
@@ -45,7 +44,7 @@ const EBOOKS: Ebook[] = [
     desc: '일차방정식부터 이차함수까지, 핵심 개념과 풀이 원리를 단계별로 정리한 교재입니다.',
     initial: 'Ⅲ',
     color: '#7b3a8e',
-    price: 28000,
+    price: 10000,
   },
   {
     id: 'eb4',
@@ -54,7 +53,7 @@ const EBOOKS: Ebook[] = [
     desc: '중학교 수학의 심화 내용과 확률·통계 기초를 포함합니다. 중등 전체를 마무리하는 정리 교재입니다.',
     initial: 'Ⅳ',
     color: '#8b3a00',
-    price: 28000,
+    price: 10000,
   },
   {
     id: 'eb5',
@@ -63,7 +62,7 @@ const EBOOKS: Ebook[] = [
     desc: '고등학교 수학의 핵심 개념을 처음 배우는 분을 위한 교재입니다. 다항식, 인수분해, 이차방정식, 집합과 명제를 원리 중심으로 정리합니다.',
     initial: 'Ⅴ',
     color: '#c0392b',
-    price: 28000,
+    price: 10000,
   },
 ]
 
@@ -84,58 +83,47 @@ export const addLocalEbookPurchase = (userId: string, ebookId: string) => {
 export default function EbookPage() {
   const { user, openAuth } = useAuth()
   const [purchasedIds, setPurchasedIds] = useState<Set<string>>(new Set())
-  const [loadingId, setLoadingId] = useState<string | null>(null)
+  const [loadingMileageId, setLoadingMileageId] = useState<string | null>(null)
+  const [mileage, setMileage] = useState<number>(0)
 
   useEffect(() => {
     if (user) {
       const local = getLocalPurchases(user.id)
       setPurchasedIds(new Set(local))
+      setMileage((user.user_metadata?.mileage as number) ?? 0)
     } else {
       setPurchasedIds(new Set())
+      setMileage(0)
     }
   }, [user])
 
-  const handlePurchase = async (ebook: Ebook) => {
+  const handlePurchase = (ebook: Ebook) => {
+    if (!user) { openAuth(); return }
+    if (purchasedIds.has(ebook.id)) return
+    window.open(PURCHASE_URL, '_blank')
+  }
+
+  const handleMileagePurchase = async (ebook: Ebook) => {
     if (!user) { openAuth(); return }
     if (purchasedIds.has(ebook.id)) return
 
-    setLoadingId(ebook.id)
-
-    try {
-      const toss = TossPayments(TOSS_CLIENT_KEY)
-      const orderId = `ebook_${ebook.id}_${Date.now()}`
-
-      await toss.requestPayment('카드', {
-        amount: ebook.price,
-        orderId,
-        orderName: `Lv120 교재 — ${ebook.title}`,
-        customerName: user.user_metadata?.name || user.email?.split('@')[0] || '회원',
-        customerEmail: user.email,
-        successUrl: `${window.location.origin}/ebook/success?ebookId=${ebook.id}`,
-        failUrl: `${window.location.origin}/ebook`,
-      })
-    } catch {
-      // 사용자가 결제창을 닫거나 실패한 경우
-    } finally {
-      setLoadingId(null)
+    if (mileage < EBOOK_MILEAGE_COST) {
+      alert(`마일리지가 부족합니다.\n보유: ${mileage} M  /  필요: ${EBOOK_MILEAGE_COST} M\n\n마일리지 충전은 관리자에게 문의해주세요.`)
+      return
     }
+
+    setLoadingMileageId(ebook.id)
+    const newMileage = mileage - EBOOK_MILEAGE_COST
+    setMileage(newMileage)
+    await supabase.auth.updateUser({ data: { mileage: newMileage } })
+    addLocalEbookPurchase(user.id, ebook.id)
+    setPurchasedIds(prev => new Set([...prev, ebook.id]))
+    setLoadingMileageId(null)
   }
 
   return (
     <div className="page-wrapper">
       <div className="page-inner">
-
-        {/* BIG EVENT 배너 */}
-        <div className="event-banner">
-          <div className="event-banner-tag">BIG EVENT</div>
-          <div className="event-banner-body">
-            <p className="event-banner-title">계좌이체 결제 시 <strong>₩3,000 할인!</strong></p>
-            <p className="event-banner-desc">
-              교재 정가 <s>₩28,000</s> → 계좌이체 시 <strong>₩25,000</strong>&nbsp;·&nbsp;
-              입금 후 대시보드 문의하기로 주문 내역을 남겨주세요.
-            </p>
-          </div>
-        </div>
 
         <div className="page-header">
           <span className="page-eyebrow">E-BOOK</span>
@@ -167,7 +155,7 @@ export default function EbookPage() {
         <div className="ebook-grid">
           {EBOOKS.map((ebook) => {
             const bought = purchasedIds.has(ebook.id)
-            const isLoading = loadingId === ebook.id
+            const isLoadingMileage = loadingMileageId === ebook.id
 
             return (
               <div
@@ -187,23 +175,25 @@ export default function EbookPage() {
 
                 <div className="ebook-card-footer">
                   <span className="ebook-price">₩ {ebook.price.toLocaleString()}</span>
-                  {bought ? (
-                    <button
-                      className="btn-ebook-reorder"
-                      onClick={() => handlePurchase(ebook)}
-                      disabled={isLoading}
-                    >
-                      {isLoading ? '처리 중...' : '재주문하기'}
-                    </button>
-                  ) : (
+                  <div className="btn-purchase-group">
                     <button
                       className="btn-ebook-purchase"
                       onClick={() => handlePurchase(ebook)}
-                      disabled={isLoading}
+                      disabled={isLoadingMileage}
                     >
-                      {isLoading ? '처리 중...' : '결제하기'}
+                      구매하기
                     </button>
-                  )}
+                    {!bought && user && (
+                      <button
+                        className={`btn-mileage-purchase${mileage < EBOOK_MILEAGE_COST ? ' btn-mileage-purchase--low' : ''}`}
+                        onClick={() => handleMileagePurchase(ebook)}
+                        disabled={isLoadingMileage}
+                        title={`마일리지 사용 (보유: ${mileage} M / 필요: ${EBOOK_MILEAGE_COST} M)`}
+                      >
+                        {isLoadingMileage ? '처리 중...' : '◈ 마일리지 구매'}
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
             )

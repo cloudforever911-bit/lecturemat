@@ -51,8 +51,15 @@ export default function MainPage() {
               <div className="char-avatar">{c.initial}</div>
               <div className="char-name">{c.name}</div>
               <div className="char-role">{c.role}</div>
-              <div className="course-price">₩ 400,000</div>
-              <button className="course-btn" onClick={() => !user && openAuth()}>
+              <div className="course-price">
+                <span className="price-original">₩ 500,000</span>
+                ₩ 300,000
+              </div>
+              <p className="price-note">(실제로 이 사이트의 주인장은 인당 중3기준 한달에 65만원씩 받고 과외하는 양반임)</p>
+              <button className="course-btn" onClick={() => {
+                if (!user) { openAuth(); return }
+                window.open('https://naver.me/GuCDrqoW', '_blank')
+              }}>
                 {user ? '수강 신청' : '로그인 후 신청'}
               </button>
             </div>
@@ -90,7 +97,7 @@ export default function MainPage() {
           {[
             { num: '4', label: '커리큘럼' },
             { num: '120', label: '최고 레벨' },
-            { num: '40만', label: '균일 수강료' },
+            { num: '30만', label: '균일 수강료' },
             { num: '1:1', label: 'Q&A 지원' },
           ].map((s) => (
             <div className="stat-item" key={s.label}>
@@ -198,7 +205,7 @@ export default function MainPage() {
           {[
             { name: '김○○', grade: '고2', text: '중3 때부터 수포자였는데 레벨 1부터 차근차근 하니까 진짜 이해가 됐어요. 지금은 수학이 제일 자신있는 과목입니다.' },
             { name: '이○○', grade: '고1', text: '학원 다닐 때는 공식만 외웠는데 여기서는 왜 그게 되는지를 알려줘서 시험장에서도 까먹지 않아요.' },
-            { name: '박○○', grade: '중3', text: '40만원이 처음엔 비싸보였는데 학원 한달치도 안 되는 가격에 전범위를 다 배울 수 있다니 진짜 가성비 최고입니다.' },
+            { name: '박○○', grade: '중3', text: '30만원이 처음엔 비싸보였는데 학원 한달치도 안 되는 가격에 전범위를 다 배울 수 있다니 진짜 가성비 최고입니다.' },
           ].map((r) => (
             <div className="review-card" key={r.name}>
               <p className="review-stars">★★★★★</p>

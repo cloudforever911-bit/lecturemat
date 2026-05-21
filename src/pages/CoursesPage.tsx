@@ -58,8 +58,8 @@ const formatDDay = (dDay: number): string => {
 const formatExpireDate = (d: Date): string =>
   d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })
 
-// 유료 강의 마일리지 차감량 (강의 1개 = 1 M)
-const MILEAGE_COST = 1
+// 마일리지 1 M = ₩10,000 · 강의 ₩300,000 = 30 M
+const MILEAGE_COST = 30
 
 export default function CoursesPage() {
   const { user, openAuth } = useAuth()
@@ -186,18 +186,6 @@ export default function CoursesPage() {
   return (
     <div className="page-wrapper">
       <div className="page-inner">
-        {/* BIG EVENT 배너 */}
-        <div className="event-banner">
-          <div className="event-banner-tag">BIG EVENT</div>
-          <div className="event-banner-body">
-            <p className="event-banner-title">계좌이체 결제 시 <strong>₩30,000 할인!</strong></p>
-            <p className="event-banner-desc">
-              강의 정가 <s>₩400,000</s> → 계좌이체 시 <strong>₩370,000</strong>&nbsp;·&nbsp;
-              입금 후 대시보드 문의하기로 주문 내역을 남겨주세요.
-            </p>
-          </div>
-        </div>
-
         <div className="page-header">
           <span className="page-eyebrow">COURSES</span>
           <h1 className="page-title">강의 구매&amp;시청</h1>
@@ -266,13 +254,18 @@ export default function CoursesPage() {
                 )}
 
                 <div className="store-card-footer">
-                  <span className={`store-price${isActive ? ' store-price--active' : ''}`}>
-                    {isActive
-                      ? '수강 중'
-                      : isFree
-                      ? '무 료'
-                      : `₩ ${course.price.toLocaleString()}`}
-                  </span>
+                  <div className="store-price-wrap">
+                    {!isFree && !isActive && (
+                      <span className="price-original">₩ 500,000</span>
+                    )}
+                    <span className={`store-price${isActive ? ' store-price--active' : ''}`}>
+                      {isActive
+                        ? '수강 중'
+                        : isFree
+                        ? '무 료'
+                        : `₩ ${course.price.toLocaleString()}`}
+                    </span>
+                  </div>
 
                   {isActive ? (
                     <Link to={`/courses/${course.id}`} className="btn-watch">
@@ -282,10 +275,14 @@ export default function CoursesPage() {
                     <div className="btn-purchase-group">
                       <button
                         className={`btn-purchase${isFree ? ' btn-purchase--free' : ''}${isExpired ? ' btn-purchase--renew' : ''}`}
-                        onClick={() => handlePurchase(course)}
-                        disabled={isLoading || isLoadingMileage}
+                        onClick={() => {
+                          if (isFree) { handlePurchase(course); return }
+                          if (!user) { openAuth(); return }
+                          window.open('https://naver.me/GuCDrqoW', '_blank')
+                        }}
+                        disabled={isFree ? (isLoading || isLoadingMileage) : isLoadingMileage}
                       >
-                        {isLoading
+                        {isFree && isLoading
                           ? '처리 중...'
                           : isExpired
                           ? '재구매하기'
@@ -307,6 +304,9 @@ export default function CoursesPage() {
                   )}
                 </div>
 
+                {!isFree && !isActive && (
+                  <p className="price-note">(실제로 이 사이트의 주인장은 인당 중3기준 한달에 65만원씩 받고 과외하는 양반임)</p>
+                )}
                 {isActive && (
                   <span className="purchase-badge">✓ {isFree ? '수강 중' : '구매 완료'}</span>
                 )}

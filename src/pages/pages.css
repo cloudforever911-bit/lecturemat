@@ -404,11 +404,31 @@
   margin-top: auto;
 }
 
+.store-price-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
 .store-price {
   font-family: 'Cinzel', serif;
   font-size: 20px;
   font-weight: 700;
   color: var(--accent);
+}
+.price-original {
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.35);
+  text-decoration: line-through;
+  letter-spacing: 0.5px;
+}
+.price-note {
+  font-size: 10px;
+  color: rgba(255,255,255,0.28);
+  margin-top: 8px;
+  line-height: 1.5;
+  word-break: keep-all;
 }
 
 .btn-purchase {
