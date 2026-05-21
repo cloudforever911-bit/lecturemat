@@ -116,7 +116,19 @@ export default function EbookPage() {
     const newMileage = mileage - EBOOK_MILEAGE_COST
     setMileage(newMileage)
     await supabase.auth.updateUser({ data: { mileage: newMileage } })
-    addLocalEbookPurchase(user.id, ebook.id)
+
+    // purchases 테이블에 기록 (관리자가 Supabase에서 확인 가능)
+    // course_id 형식: "ebook_eb1" 등으로 강의 구매와 구분
+    const { error } = await supabase.from('purchases').insert({
+      user_id: user.id,
+      course_id: `ebook_${ebook.id}`,
+      amount_paid: 0,
+      status: 'paid',
+    })
+    // Supabase 실패 시 localStorage 폴백
+    if (error) addLocalEbookPurchase(user.id, ebook.id)
+    else addLocalEbookPurchase(user.id, ebook.id)
+
     setPurchasedIds(prev => new Set([...prev, ebook.id]))
     setLoadingMileageId(null)
   }
