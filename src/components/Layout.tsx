@@ -38,7 +38,7 @@ export default function Layout() {
 
         <nav className={`aot-nav${isMain ? '' : ' nav-solid'}`}>
           <Link to="/" className="nav-logo-link" onClick={() => setMenuOpen(false)}>
-            <span className="nav-logo">Lv120</span>
+            <span className="nav-logo">Lv90</span>
           </Link>
 
           {/* 데스크탑 링크 */}

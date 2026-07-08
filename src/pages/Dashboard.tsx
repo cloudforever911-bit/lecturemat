@@ -90,7 +90,7 @@ export default function Dashboard() {
             </div>
 
             <a
-              href={`mailto:${CONTACT_EMAIL}?subject=[Lv120 문의]&body=문제 발생 사항 기재 :%0D%0A%0D%0A원하는 해결 목적 기재 :%0D%0A%0D%0A`}
+              href={`mailto:${CONTACT_EMAIL}?subject=[Lv90 문의]&body=문제 발생 사항 기재 :%0D%0A%0D%0A원하는 해결 목적 기재 :%0D%0A%0D%0A`}
               className="btn-contact-send"
             >
               이메일 앱으로 바로 작성하기 →

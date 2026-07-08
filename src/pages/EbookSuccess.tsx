@@ -73,7 +73,7 @@ export default function EbookSuccess() {
           <div className="ebook-success-box">
             <div className="success-row">
               <span className="success-label">교재명</span>
-              <span className="success-value">Lv120 교재 — {ebookTitle}</span>
+              <span className="success-value">Lv90 교재 — {ebookTitle}</span>
             </div>
             <div className="success-row">
               <span className="success-label">결제 금액</span>

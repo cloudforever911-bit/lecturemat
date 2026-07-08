@@ -17,13 +17,13 @@ export default function MainPage() {
         <div className="hero-math-bg">∑ ∫ π √ ∞ ∂ Δ</div>
         <div className="hero-content">
           <p className="hero-eyebrow">국내 유일 레벨 기반 수학 커리큘럼</p>
-          <h1 className="hero-brand">Lv120</h1>
+          <h1 className="hero-brand">Lv90</h1>
           <p className="hero-sub-brand">수 &nbsp; 학</p>
           <p className="hero-hook">
             "수포자도, 최상위도<br />
             단 하나의 플랫폼으로 정복한다"
           </p>
-          <p className="hero-tagline">레벨 1 노베이스부터 레벨 120 미적분까지 — 빈틈 없이</p>
+          <p className="hero-tagline">레벨 1 노베이스부터 레벨 90 미적분까지 — 빈틈 없이</p>
           {user ? (
             <p className="welcome-msg">환영합니다, {user.email?.split('@')[0]}님!</p>
           ) : (
@@ -39,13 +39,31 @@ export default function MainPage() {
           <span className="section-label">COURSES</span>
           <h2 className="section-title">커리큘럼</h2>
           <p className="section-desc">내 레벨에서 시작해 끝까지. 어디서든 시작할 수 있습니다.</p>
+          <div className="section-cta">
+            <a
+              className="btn-outline-accent"
+              href="https://linktr.ee/newbasemath"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              커리 소개
+            </a>
+            <a
+              className="btn-outline-accent"
+              href="https://linktr.ee/newbasemath"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              선생님 소개
+            </a>
+          </div>
         </div>
         <div className="chars-grid">
           {[
             { initial: '中', name: '중학교 전범위 수학강의', role: '도형 제외 · Lv.1 ~ 60', color: '#8b0000' },
             { initial: '圖', name: '중학 도형 특강', role: '도형 집중 완성 · Lv.30 ~ 70', color: '#2c5282' },
             { initial: '高', name: '고1 전범위 수학강의', role: '고등 수학 Ⅰ · Lv.60 ~ 90', color: '#c0392b' },
-            { initial: 'Σ', name: '고2 수학 전범위 강의', role: '미적분 · 확통 · Lv.90 ~ 120', color: '#5b2d8e' },
+            { initial: 'Σ', name: '고2 수학 전범위 강의', role: '미적분 · 확통 · Lv.70 ~ 90', color: '#5b2d8e' },
           ].map((c) => (
             <div className="char-card" key={c.name} style={{ '--accent-color': c.color } as React.CSSProperties}>
               <div className="char-avatar">{c.initial}</div>
@@ -78,7 +96,7 @@ export default function MainPage() {
             "수학은 재능이 아니라 방법의 문제입니다.<br />
             올바른 길을 걸으면, 누구든 정상에 오릅니다."
           </blockquote>
-          <cite>— Lv120 수학</cite>
+          <cite>— Lv90 수학</cite>
         </div>
         <div className="pillars-grid">
           {[
@@ -96,7 +114,7 @@ export default function MainPage() {
         <div className="stats-row">
           {[
             { num: '4', label: '커리큘럼' },
-            { num: '120', label: '최고 레벨' },
+            { num: '90', label: '최고 레벨' },
             { num: '30만', label: '균일 수강료' },
             { num: '1:1', label: 'Q&A 지원' },
           ].map((s) => (
@@ -146,7 +164,7 @@ export default function MainPage() {
         <div className="section-header">
           <span className="section-label">BEFORE / AFTER</span>
           <h2 className="section-title">당신은 지금 어디에 있습니까?</h2>
-          <p className="section-desc">Lv120을 만나기 전과 후 — 단 하나의 선택이 모든 것을 바꿉니다.</p>
+          <p className="section-desc">Lv90을 만나기 전과 후 — 단 하나의 선택이 모든 것을 바꿉니다.</p>
         </div>
         <div className="contrast-split">
           <div className="contrast-side contrast-before">
@@ -186,7 +204,7 @@ export default function MainPage() {
           <p className="guarantee-text">
             저는 여러분이 수학의 원리를 이해하는 순간까지 함께합니다.<br />
             단순 암기가 아닌, 수학이 왜 그렇게 작동하는지 뿌리부터 심어드립니다.<br />
-            레벨 1에서 레벨 120까지, 단 하나의 빈틈도 없이.
+            레벨 1에서 레벨 90까지, 단 하나의 빈틈도 없이.
           </p>
           <button className="btn-guarantee" onClick={() => !user && openAuth()}>
             지금 바로 시작하기 →
@@ -363,7 +381,7 @@ export default function MainPage() {
       )}
 
       <footer className="footer">
-        <p>© 2025 Lv120 수학 · All rights reserved</p>
+        <p>© 2025 Lv90 수학 · All rights reserved</p>
         <p className="footer-sub">본 사이트의 모든 강의 콘텐츠는 저작권법의 보호를 받습니다.</p>
       </footer>
     </>

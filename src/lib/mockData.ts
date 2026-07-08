@@ -69,7 +69,7 @@ export const MOCK_COURSES: Course[] = [
     category: '고등수학',
     initial: 'Σ',
     color: '#5b2d8e',
-    level: 'Lv.90 ~ 120',
+    level: 'Lv.70 ~ 90',
   },
 ]
 

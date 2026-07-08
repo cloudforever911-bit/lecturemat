@@ -285,6 +285,14 @@ body {
   letter-spacing: 0.5px;
 }
 
+.section-cta {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
 /* ── SECTION 2: COURSES ── */
 .courses-section {
   padding: 100px 24px;
